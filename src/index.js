@@ -1,1 +1,3 @@
-console.log(1122);
+import { MatcherHandler } from "./matcherHandler.js";
+
+const matcherHandler = new MatcherHandler();
