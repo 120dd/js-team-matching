@@ -27,7 +27,7 @@ export const Templates = {
     </section>
     `,
     FRONTEND_COURSE_MANAGE_SECTIONS:`
-        <section>
+        <section class="crew-tab-detail">
       <h3>프론트엔드 크루 관리</h3>
       <form>
         <label>크루 이름</label>
@@ -35,7 +35,7 @@ export const Templates = {
         <button id="add-crew-button">확인</button>
       </form>
     </section>
-    <section>
+    <section class="crew-tab-detail">
       <h3>프론트엔드 크루 목록</h3>
       <table id="crew-table" border="1">
         <thead>
@@ -58,7 +58,7 @@ export const Templates = {
     </section>
     `,
     BACKEND_COURSE_MANAGE_SECTIONS:`
-        <section>
+        <section class="crew-tab-detail">
       <h3>백엔드 크루 관리</h3>
       <form>
         <label>크루 이름</label>
@@ -66,7 +66,7 @@ export const Templates = {
         <button id="add-crew-button">확인</button>
       </form>
     </section>
-    <section>
+    <section class="crew-tab-detail">
       <h3>백엔드 크루 목록</h3>
       <table id="crew-table" border="1">
         <thead>
@@ -88,7 +88,7 @@ export const Templates = {
       </table>
     </section>
     `,
-    MATCHCHING_SECTION:`
+    MATCHING_SECTION:`
     <section>
       <h3>팀 매칭을 관리할 코스, 미션을 선택하세요.</h3>
       <form>
@@ -109,7 +109,7 @@ export const Templates = {
         <button id="show-team-matcher-button">확인</button>
       </form>
     </section>
-    <section>
+    <section class="matching-section">
       <h3>프론트엔드 숫자야구게임 미션의 팀 매칭</h3>
       <div>
         <div>
