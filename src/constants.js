@@ -1,5 +1,6 @@
 export const SELECTOR = {
     APP:"app",
+    MAIN:"main",
     CREW_TAB: "crew-tab",
     TEAM_TAB: "team-tab",
     FRONTEND_COURSE_INPUT: "frontend-course",
