@@ -26,68 +26,43 @@ export const Templates = {
       </div>
     </section>
     `,
-    FRONTEND_COURSE_MANAGE_SECTIONS:`
-        <section class="crew-tab-detail">
-      <h3>프론트엔드 크루 관리</h3>
-      <form>
-        <label>크루 이름</label>
-        <input id="crew-name-input" type="text" />
-        <button id="add-crew-button">확인</button>
-      </form>
-    </section>
+    COURSE_MANAGE_SECTION:(courseName,crewTableItems)=>`
     <section class="crew-tab-detail">
-      <h3>프론트엔드 크루 목록</h3>
-      <table id="crew-table" border="1">
-        <thead>
-          <tr>
+            <h3>${courseName} 크루 관리</h3>
+            <form>
+                <label>크루 이름</label>
+                <input id="crew-name-input" type="text" />
+                <button id="add-crew-button">확인</button>
+            </form>
+        </section>
+    <section class="crew-tab-detail">
+            <h3>${courseName} 크루 목록</h3>
+            <table id="crew-table" border="1">
+            <thead>
+            <tr>
             <th></th>
             <th>크루</th>
             <th>관리</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>준</td>
-            <td>
-              <button class="delete-crew-button">삭제</button>
-            </td>
-          </tr>
+            </tr>
+            </thead>
+            <tbody>
+            ${crewTableItems}
         </tbody>
-      </table>
+        </table>
     </section>
-    `,
-    BACKEND_COURSE_MANAGE_SECTIONS:`
-        <section class="crew-tab-detail">
-      <h3>백엔드 크루 관리</h3>
-      <form>
-        <label>크루 이름</label>
-        <input id="crew-name-input" type="text" />
-        <button id="add-crew-button">확인</button>
-      </form>
-    </section>
-    <section class="crew-tab-detail">
-      <h3>백엔드 크루 목록</h3>
-      <table id="crew-table" border="1">
-        <thead>
-          <tr>
-            <th></th>
-            <th>크루</th>
-            <th>관리</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>준</td>
+    `
+    ,
+    CREW_TABLE_ITEMS:(crewList)=>
+        crewList.map((crewName,idx)=>`
+        <tr>
+            <td>${idx+1}</td>
+            <td>${crewName}</td>
             <td>
-              <button class="delete-crew-button">삭제</button>
+            <button class="delete-crew-button">삭제</button>
             </td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-    `,
+        </tr>
+    `).join("")
+    ,
     MATCHING_SECTION:`
     <section>
       <h3>팀 매칭을 관리할 코스, 미션을 선택하세요.</h3>

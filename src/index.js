@@ -1,3 +1,8 @@
 import { MatcherHandler } from "./matcherHandler.js";
 
-const matcherHandler = new MatcherHandler();
+const mockData = {
+    frontend:["a","b"],
+    backend:["c","d"],
+}
+
+const matcherHandler = new MatcherHandler(mockData);
