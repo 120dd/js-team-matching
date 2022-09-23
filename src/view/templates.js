@@ -15,7 +15,7 @@ export const Templates = {
   </header>
     `,
     MAIN: `<main id="main"></main>`,
-    COURSE_SELECT: `
+    MANAGE_COURSE_SELECT: `
     <section>
       <h3>크루를 관리할 코스를 선택해주세요</h3>
       <div>
@@ -26,7 +26,7 @@ export const Templates = {
       </div>
     </section>
     `,
-    COURSE_MANAGE_SECTION:(courseName,crewTableItems)=>`
+    COURSE_MANAGE_SECTION: (courseName) => `
     <section class="crew-tab-detail">
             <h3>${courseName} 크루 관리</h3>
             <form>
@@ -45,17 +45,16 @@ export const Templates = {
             <th>관리</th>
             </tr>
             </thead>
-            <tbody>
-            ${crewTableItems}
+            <tbody id="crew-tbody">
         </tbody>
         </table>
     </section>
     `
     ,
-    CREW_TABLE_ITEMS:(crewList)=>
-        crewList.map((crewName,idx)=>`
+    CREW_TABLE_ITEMS: (crewList) =>
+        crewList.map((crewName, idx) => `
         <tr>
-            <td>${idx+1}</td>
+            <td>${idx + 1}</td>
             <td>${crewName}</td>
             <td>
             <button class="delete-crew-button">삭제</button>
@@ -63,7 +62,7 @@ export const Templates = {
         </tr>
     `).join("")
     ,
-    MATCHING_SECTION:`
+    MATCHING_SECTION: `
     <section>
       <h3>팀 매칭을 관리할 코스, 미션을 선택하세요.</h3>
       <form>
@@ -103,7 +102,7 @@ export const Templates = {
       </div>
     </section>
     `,
-    MATCHING_RESULT_SECTION:`
+    MATCHING_RESULT_SECTION: `
     <section>
       <h3>프론트엔드 숫자야구게임 조회</h3>
       <p>팀이 매칭되었습니다.</p>
@@ -117,4 +116,4 @@ export const Templates = {
     </section>
     `
     
-}
+};
