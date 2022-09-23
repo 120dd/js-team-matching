@@ -53,22 +53,28 @@ export default class {
     
     registerFrontendButtonClickEvent() {
         $(`#${SELECTOR.FRONTEND_COURSE_INPUT}`).addEventListener("click", (e) => {
-            this.renderCourseSection(e);
+            this.renderCourseSection({ courseName:e.target.value });
             this.preventDefault();
         });
     }
     
     registerBackendButtonClickEvent() {
         $(`#${SELECTOR.BACKEND_COURSE_INPUT}`).addEventListener("click", (e) => {
-            this.renderCourseSection(e);
+            this.renderCourseSection({ courseName:e.target.value });
             this.preventDefault();
         });
     }
     
-    renderCourseSection(e){
-        this.#currentCourseName = e.target.value;
+    getCourseManageSectionTemplate(courseName){
+        return Templates.COURSE_MANAGE_SECTION(
+            this.getLabelText(courseName),
+            Templates.CREW_TABLE_ITEMS(this.#currentCrewData[courseName])
+        )
+    }
+    
+    renderCourseSection({ courseName }){
+        this.#currentCourseName = courseName;
         removeClassNodes(SELECTOR.CREW_TAB_DETAIL);
-        renderTemplate(SELECTOR.MAIN, Templates
-        .COURSE_MANAGE_SECTION(this.getLabelText(this.#currentCourseName),Templates.CREW_TABLE_ITEMS(this.#currentCrewData[this.#currentCourseName])))
+        renderTemplate(SELECTOR.MAIN, this.getCourseManageSectionTemplate(this.#currentCourseName))
     }
 }
