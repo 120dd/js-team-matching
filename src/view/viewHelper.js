@@ -1,7 +1,7 @@
 import { $ } from "../utils.js";
 
-export function renderTemplate(parentId,chiledNode) {
-    $(`#${parentId}`).insertAdjacentHTML("beforeend",chiledNode);
+export function renderTemplate(parentId, chiledNode) {
+    $(`#${parentId}`).insertAdjacentHTML("beforeend", chiledNode);
 }
 
 export function clearNode(targetId) {
@@ -9,7 +9,11 @@ export function clearNode(targetId) {
 }
 
 export function removeClassNodes(targetClass) {
-    document.querySelectorAll(`.${targetClass}`).forEach(node=>{
+    document.querySelectorAll(`.${targetClass}`).forEach(node => {
         node.remove();
     });
+}
+
+export function getSelectedName(target){
+    return target.options[target.selectedIndex].text;
 }
