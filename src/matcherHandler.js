@@ -6,8 +6,7 @@ export class MatcherHandler {
         this.matcher = new Matcer();
         this.view = new View();
         this.view.registerManageTabClickEventListener({
-            addFn:this.requestSetCrew,
-            deleteFn:this.requestDeleteCrew,
+            addFn: this.requestSetCrew, deleteFn: this.requestDeleteCrew,
         });
         this.view.registerTeamTabClickEventListener();
     }

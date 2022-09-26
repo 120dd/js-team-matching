@@ -23,10 +23,10 @@ export default class {
         $("header").addEventListener("click", (e) => {
             e.preventDefault();
             if (e.target.id === SELECTOR.CREW_TAB) {
-                this.showCrewTab();
+                return this.showCrewTab();
             }
             if (e.target.id === SELECTOR.TEAM_TAB) {
-                this.showTeamTab();
+                return this.showTeamTab();
             }
         });
     }
@@ -34,13 +34,13 @@ export default class {
     registerManageTabClickEventListener({ addFn, deleteFn }) {
         $(SELECTOR.MAIN).addEventListener("click", (e) => {
             if (e.target.id === SELECTOR.FRONTEND_COURSE_INPUT || e.target.id === SELECTOR.BACKEND_COURSE_INPUT) {
-                this.showManageSection(e);
+                return this.showManageSection(e);
             }
             if (e.target.id === SELECTOR.ADD_CREW_BUTTON) {
-                this.requestAddCrew(addFn);
+                return this.requestAddCrew(addFn);
             }
             if (e.target.className === SELECTOR.DELETE_CREW_BUTTON) {
-                this.requestDeleteCrew(e, deleteFn);
+                return this.requestDeleteCrew(e, deleteFn);
             }
         });
     }
@@ -76,7 +76,7 @@ export default class {
         this.#currentMisson = $(`#${SELECTOR.MISSION_SELECT}`).value;
         renderTemplate(SELECTOR.MAIN, Templates.MATCHING_SECTION({
             course: getSelectedName($(`#${SELECTOR.COURSE_SELECT}`)),
-            mission:getSelectedName($(`#${SELECTOR.MISSION_SELECT}`))
+            mission: getSelectedName($(`#${SELECTOR.MISSION_SELECT}`))
         }));
         this.renderCourseMemberList();
     }
@@ -89,8 +89,7 @@ export default class {
     
     requestDeleteCrew(e, callbackFn) {
         callbackFn({
-            position: this.#currentCourse,
-            idx: e.target.dataset.targetIndex
+            position: this.#currentCourse, idx: e.target.dataset.targetIndex
         });
     }
     
@@ -104,9 +103,9 @@ export default class {
         renderTemplate(SELECTOR.CREW_TBODY, Templates.CREW_TABLE_ITEMS(crewList[ this.#currentCourse ]));
     }
     
-    renderCourseMemberList(){
-        this.matcher.getPositionList(this.#currentCourse).map(name=>{
-            renderTemplate(SELECTOR.COURSE_MEMBER_LIST,Templates.COURSE_MEMBER_LIST_ITEM(name));
+    renderCourseMemberList() {
+        this.matcher.getPositionList(this.#currentCourse).map(name => {
+            renderTemplate(SELECTOR.COURSE_MEMBER_LIST, Templates.COURSE_MEMBER_LIST_ITEM(name));
         })
     }
 }
