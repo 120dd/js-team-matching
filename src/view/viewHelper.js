@@ -13,3 +13,7 @@ export function removeClassNodes(targetClass) {
         node.remove();
     });
 }
+
+export function getSelectedName(target){
+    return target.options[target.selectedIndex].text;
+}

@@ -13,6 +13,7 @@ export const SELECTOR = {
     DELETE_CREW_BUTTON: "delete-crew-button",
     COURSE_SELECT: "course-select",
     MISSION_SELECT: "mission-select",
+    COURSE_MEMBER_LIST: "course-member-list",
     SHOW_TEAM_MATCHER_BUTTON: "show-team-matcher-button",
     TEAM_MEMBER_COUNT_INPUT: "team-member-count-input",
     MATCH_TEAM_BUTTON: "match-team-button",

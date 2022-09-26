@@ -9,6 +9,7 @@ export class MatcherHandler {
             addFn:this.requestSetCrew,
             deleteFn:this.requestDeleteCrew,
         });
+        this.view.registerTeamTabClickEventListener();
     }
     
     requestSetCrew = (crewInfo) => {
