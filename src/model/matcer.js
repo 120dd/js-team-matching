@@ -23,4 +23,8 @@ export class Matcer {
     setCrew = ({ position, name }) => {
         this.#crewList[ position ].push(name);
     }
+    
+    deleteCrew = ({ position, idx }) => {
+        this.#crewList[ position ].splice(idx,1);
+    }
 }

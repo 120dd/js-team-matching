@@ -10,6 +10,7 @@ export const SELECTOR = {
     BACKEND_COURSE_INPUT: "backend-course",
     CREW_NAME_INPUT: "crew-name-input",
     ADD_CREW_BUTTON: "add-crew-button",
+    DELETE_CREW_BUTTON: "delete-crew-button",
     COURSE_SELECT: "course-select",
     MISSION_SELECT: "mission-select",
     SHOW_TEAM_MATCHER_BUTTON: "show-team-matcher-button",

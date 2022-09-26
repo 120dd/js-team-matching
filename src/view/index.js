@@ -6,58 +6,79 @@ import { Matcer } from "../model/matcer.js";
 
 export default class {
     #currentCourse;
+    #currentMisson;
     
     constructor() {
         this.matcher = new Matcer();
-        this.#currentCourse = "";
         this.initPage();
     }
     
     initPage() {
         renderTemplate(SELECTOR.APP, Templates.HEADER);
         renderTemplate(SELECTOR.APP, Templates.MAIN);
+        this.registerHeaderEventListener();
     }
     
-    registerCrewTabClickEvent(callBackFn) {
-        $(`#${SELECTOR.CREW_TAB}`).addEventListener("click", () => {
+    registerHeaderEventListener() {
+        $("header").addEventListener("click", (e) => {
+            if (e.target.id === SELECTOR.CREW_TAB) {
+                this.showCrewTab();
+            }
+            if (e.target.id === SELECTOR.TEAM_TAB) {
+                this.showTeamTab();
+            }
+        });
+    }
+    
+    registerManageTabClickEventListener({ addFn, deleteFn }) {
+        $(SELECTOR.MAIN).addEventListener("click", (e) => {
+            if (e.target.id === SELECTOR.FRONTEND_COURSE_INPUT || e.target.id === SELECTOR.BACKEND_COURSE_INPUT) {
+                this.showManageSection(e);
+            }
+            if (e.target.id === SELECTOR.ADD_CREW_BUTTON) {
+                this.requestAddCrew(addFn);
+            }
+            if (e.target.className === SELECTOR.DELETE_CREW_BUTTON) {
+                this.requestDeleteCrew(e,deleteFn);
+            }
+        });
+    }
+    
+    showCrewTab() {
             clearNode(SELECTOR.MAIN);
             renderTemplate(SELECTOR.MAIN, Templates.MANAGE_COURSE_SELECT);
-            this.registerFrontendButtonClickEvent(callBackFn);
-            this.registerBackendButtonClickEvent(callBackFn);
+    }
+    
+    showTeamTab(){
+        clearNode(SELECTOR.MAIN);
+        renderTemplate(SELECTOR.MAIN, Templates.MATCHING_TEAM_SELECT_SECTION);
+    }
+    
+    showManageSection(e) {
+        this.#currentCourse = e.target.value;
+        this.renderCourseManageSection();
+        this.renderManageCrewList(this.matcher.getCrewList());
+    }
+    
+    requestAddCrew(callbackFn) {
+        $("form").addEventListener("submit", (e) => {
+            e.preventDefault();
+        });
+        callbackFn({
+            position: this.#currentCourse, name: $(`#${SELECTOR.CREW_NAME_INPUT}`).value
         });
     }
     
-    registerFrontendButtonClickEvent(callBackFn) {
-        $(`#${SELECTOR.FRONTEND_COURSE_INPUT}`).addEventListener("click", (e) => {
-            this.#currentCourse = e.target.value;
-            this.renderCourseManageSection(callBackFn);
-            this.renderManageCrewList(this.matcher.getCrewList());
+    requestDeleteCrew(e,callbackFn) {
+        callbackFn({
+            position: this.#currentCourse,
+            idx: e.target.dataset.targetIndex
         });
     }
     
-    registerBackendButtonClickEvent(callBackFn) {
-        $(`#${SELECTOR.BACKEND_COURSE_INPUT}`).addEventListener("click", (e) => {
-            this.#currentCourse = e.target.value;
-            this.renderCourseManageSection(callBackFn);
-            this.renderManageCrewList(this.matcher.getCrewList());
-        })
-    }
-    
-    renderCourseManageSection(callbackFn) {
+    renderCourseManageSection() {
         removeClassNodes(SELECTOR.CREW_TAB_DETAIL);
         renderTemplate(SELECTOR.MAIN, Templates.COURSE_MANAGE_SECTION(COURSE_NAME_KR[ this.#currentCourse ]));
-        this.registerAddCrewButtonEvent(callbackFn);
-    }
-    
-    registerAddCrewButtonEvent(callbackFn) {
-        $("form").addEventListener("submit", (e) => {
-            e.preventDefault()
-        });
-        $(`#${SELECTOR.ADD_CREW_BUTTON}`).addEventListener("click", () => {
-            callbackFn({
-                position: this.#currentCourse, name: $(`#${SELECTOR.CREW_NAME_INPUT}`).value
-            });
-        })
     }
     
     renderManageCrewList(crewList) {

@@ -5,11 +5,18 @@ export class MatcherHandler {
     constructor() {
         this.matcher = new Matcer();
         this.view = new View();
-        this.view.registerCrewTabClickEvent(this.requestSetCrew);
+        this.view.registerManageTabClickEventListener({
+            addFn:this.requestSetCrew,
+            deleteFn:this.requestDeleteCrew,
+        });
     }
     
     requestSetCrew = (crewInfo) => {
         this.matcher.setCrew(crewInfo);
+        this.view.renderManageCrewList(this.matcher.getCrewList());
+    }
+    requestDeleteCrew = (crewInfo) => {
+        this.matcher.deleteCrew(crewInfo);
         this.view.renderManageCrewList(this.matcher.getCrewList());
     }
 }
