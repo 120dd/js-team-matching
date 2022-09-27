@@ -84,7 +84,7 @@ export const Templates = {
             </form>
         </section>
     `,
-    MATCHING_SECTION:({ course, mission })=> `
+    MATCHING_SECTION: ({ course, mission }) => `
     <section class="matching-section">
       <h3>${course} ${mission} 미션의 팀 매칭</h3>
       <div>
@@ -102,12 +102,12 @@ export const Templates = {
       </div>
     </section>
     `,
-    COURSE_MEMBER_LIST_ITEM:(name)=>`
+    COURSE_MEMBER_LIST_ITEM: (name) => `
         <li>${name}</li>
     `,
-    MATCHING_RESULT_SECTION: `
-    <section>
-      <h3>프론트엔드 숫자야구게임 조회</h3>
+    MATCHING_RESULT_SECTION: ({ course, mission }) => `
+    <section class="result-detail">
+      <h3>${course} ${mission} 조회</h3>
       <p>팀이 매칭되었습니다.</p>
       <ul id="team-match-result">
         <li>준,포코</li>
@@ -117,6 +117,8 @@ export const Templates = {
         <button id="rematch-team-button">재매칭</button>
       </p>
     </section>
-    `
-    
+    `,
+    MATCHED_LIST: (teamList) => teamList.map(name => `
+        <li>${name}</li>
+    `).join("")
 };

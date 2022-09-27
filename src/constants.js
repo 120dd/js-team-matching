@@ -17,6 +17,9 @@ export const SELECTOR = {
     SHOW_TEAM_MATCHER_BUTTON: "show-team-matcher-button",
     TEAM_MEMBER_COUNT_INPUT: "team-member-count-input",
     MATCH_TEAM_BUTTON: "match-team-button",
+    TEAM_MATCH_RESULT: "team-match-result",
+    RESULT_DETAIL: "result-detail",
+    REMATCH_TEAM_BUTTON: "rematch-team-button",
 };
 
 export const COURSE_NAME_KR = {

@@ -7,13 +7,14 @@ export class Matcer {
         }
         Matcer.instance = this;
         this.#crewList = {
-            frontend: ["a", "b"],
+            frontend: ["a", "b", "aa", "bb", "cc", "dd"],
             backend: ["c", "d"],
         }
+        this.matchedList = [];
     }
     
-    getPositionList(posittion) {
-        return this.#crewList[ posittion ];
+    getPositionList(position) {
+        return this.#crewList[ position ];
     }
     
     getCrewList() {
@@ -25,6 +26,29 @@ export class Matcer {
     }
     
     deleteCrew = ({ position, idx }) => {
-        this.#crewList[ position ].splice(idx,1);
+        this.#crewList[ position ].splice(idx, 1);
+    }
+    
+    getShuffleList = (position) => {
+        this.matchedList = [];
+        const positionLength = this.#crewList[ position ].length;
+        const randomIdxs = []
+        for (let i = 0 ; i < positionLength ; i ++) {
+            randomIdxs.push(i);
+        }
+        return MissionUtils.Random.shuffle(randomIdxs);
+    }
+    
+    matchingTeam = ({ position, minNum }) => {
+        const shuffleList = this.getShuffleList(position);
+        const teamNumber = Math.floor(this.#crewList[ position ].length / minNum);
+        for (let i = 0 ; i < teamNumber ; i ++) {
+            this.matchedList.push([]);
+        }
+        shuffleList.forEach((v, idx) => {
+            const pushedIdx = idx % teamNumber;
+            this.matchedList[ pushedIdx ].push(this.#crewList[ position ][ v ]);
+        });
+        return this.matchedList;
     }
 }

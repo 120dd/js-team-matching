@@ -8,7 +8,15 @@ export class MatcherHandler {
         this.view.registerManageTabClickEventListener({
             addFn: this.requestSetCrew, deleteFn: this.requestDeleteCrew,
         });
-        this.view.registerTeamTabClickEventListener();
+        this.view.registerTeamTabClickEventListener({
+            matchingFn: this.requestMatching,
+        });
+    }
+    
+    requestMatching = ({ position, minNum }) => {
+        const teamList = this.matcher.matchingTeam({ position, minNum });
+        this.view.renderResult();
+        this.view.renderResultTeamList(teamList)
     }
     
     requestSetCrew = (crewInfo) => {
