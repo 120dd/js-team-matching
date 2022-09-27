@@ -1,6 +1,6 @@
-import View from './view';
 import { Matcer } from './model/matcer.js';
-import { isDuplicate, isEmpty, isInvalidNum } from './validator.js';
+import { isDuplicate, isInvalidName, isInvalidNum } from './validator.js';
+import View from './view/view.js';
 
 export class MatcherHandler {
 	constructor() {
@@ -27,7 +27,7 @@ export class MatcherHandler {
 
 	requestSetCrew = crewInfo => {
 		if (
-			isEmpty(crewInfo.name) ||
+			isInvalidName(crewInfo.name) ||
 			isDuplicate(crewInfo.name, this.matcher.getPositionList(crewInfo.position))
 		) {
 			return;
