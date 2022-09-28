@@ -1,5 +1,5 @@
 import { Matcer } from './model/matcer.js';
-import { isDuplicate, isInvalidName, isInvalidNum } from './validator.js';
+import { validateName, isInvalidNum } from './validator.js';
 import View from './view/view.js';
 
 export class MatcherHandler {
@@ -17,7 +17,9 @@ export class MatcherHandler {
 
 	requestMatching = ({ position, minNum }) => {
 		const maxNum = Math.floor(this.matcher.getPositionList(position).length / 2);
-		if (isInvalidNum({ num: minNum, maxNum })) {
+		const validateResult = isInvalidNum({ num: minNum, maxNum });
+		if (validateResult.status) {
+			this.view.alertErrorCode(validateResult.errorCode);
 			return;
 		}
 		const teamList = this.matcher.matchingTeam({ position, minNum });
@@ -26,15 +28,18 @@ export class MatcherHandler {
 	};
 
 	requestSetCrew = crewInfo => {
-		if (
-			isInvalidName(crewInfo.name) ||
-			isDuplicate(crewInfo.name, this.matcher.getPositionList(crewInfo.position))
-		) {
+		const validResult = validateName(
+			crewInfo.name,
+			this.matcher.getPositionList(crewInfo.position),
+		);
+		if (validResult.status) {
+			this.view.alertErrorCode(validResult.errorCode);
 			return;
 		}
 		this.matcher.setCrew(crewInfo);
 		this.view.renderManageCrewList(this.matcher.getCrewList());
 	};
+
 	requestDeleteCrew = crewInfo => {
 		this.matcher.deleteCrew(crewInfo);
 		this.view.renderManageCrewList(this.matcher.getCrewList());

@@ -1,7 +1,7 @@
 import { $ } from '../utils.js';
 
-export function renderTemplate(parentId, chiledNode) {
-	$(`#${parentId}`).insertAdjacentHTML('beforeend', chiledNode);
+export function renderTemplate(parentId, childNode) {
+	$(`#${parentId}`).insertAdjacentHTML('beforeend', childNode);
 }
 
 export function clearNode(targetId) {

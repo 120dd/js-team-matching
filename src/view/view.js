@@ -148,4 +148,8 @@ export default class {
 	renderResultTeamList(teamList) {
 		$(`#${SELECTOR.TEAM_MATCH_RESULT}`).innerHTML = Templates.MATCHED_LIST(teamList);
 	}
+
+	alertErrorCode(errorCode) {
+		alert(errorCode);
+	}
 }
