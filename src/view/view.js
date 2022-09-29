@@ -20,52 +20,48 @@ export default class {
 	}
 
 	registerHeaderEventListener() {
+		const actions = {
+			'crew-tab': () => this.showCrewTab(),
+			'team-tab': () => this.showTeamTab(),
+		};
+
 		$('header').addEventListener('click', e => {
 			e.preventDefault();
-			if (e.target.id === SELECTOR.CREW_TAB) {
-				return this.showCrewTab();
-			}
-			if (e.target.id === SELECTOR.TEAM_TAB) {
-				return this.showTeamTab();
-			}
+			e.target.id && actions[e.target.id]();
 		});
+	}
+
+	registerManageTabClickEventListenerActions({ e, addFn, deleteFn }) {
+		return {
+			'frontend-course': () => this.showManageSection(e),
+			'backend-course': () => this.showManageSection(e),
+			'add-crew-button': () => this.requestAddCrew(addFn),
+			'delete-crew-button': () => this.requestDeleteCrew(e, deleteFn),
+		};
 	}
 
 	registerManageTabClickEventListener({ addFn, deleteFn }) {
 		$(SELECTOR.MAIN).addEventListener('click', e => {
-			if (
-				e.target.id === SELECTOR.FRONTEND_COURSE_INPUT ||
-				e.target.id === SELECTOR.BACKEND_COURSE_INPUT
-			) {
-				return this.showManageSection(e);
-			}
-			if (e.target.id === SELECTOR.ADD_CREW_BUTTON) {
-				return this.requestAddCrew(addFn);
-			}
+			const actions = this.registerManageTabClickEventListenerActions({ e, addFn, deleteFn });
 			if (e.target.className === SELECTOR.DELETE_CREW_BUTTON) {
 				return this.requestDeleteCrew(e, deleteFn);
 			}
+			e.target.id && typeof actions[e.target.id] === 'function' && actions[e.target.id]();
 		});
 	}
 
 	registerTeamTabClickEventListener({ matchingFn }) {
 		$(SELECTOR.MAIN).addEventListener('click', e => {
 			e.preventDefault();
-			if (
-				e.target.id === SELECTOR.SHOW_TEAM_MATCHER_BUTTON ||
-				e.target.id === SELECTOR.REMATCH_TEAM_BUTTON
-			) {
-				this.showTeamMatchingSectionDetail();
-				return;
-			}
-			if (e.target.id === SELECTOR.MATCH_TEAM_BUTTON) {
-				const minNum = $(`#${SELECTOR.TEAM_MEMBER_COUNT_INPUT}`).value;
-				matchingFn({ position: this.#currentCourse, minNum });
-				return;
-			}
-			if (e.target.id === SELECTOR.REMATCH_TEAM_BUTTON) {
-				this.showTeamMatchingSectionDetail();
-			}
+			const actions = {
+				'show-team-matcher-button': () => this.showTeamMatchingSectionDetail(),
+				'rematch-team-button': () => this.showTeamMatchingSectionDetail(),
+				'match-team-button': () => {
+					const minNum = $(`#${SELECTOR.TEAM_MEMBER_COUNT_INPUT}`).value;
+					matchingFn({ position: this.#currentCourse, minNum });
+				},
+			};
+			e.target.id && typeof actions[e.target.id] === 'function' && actions[e.target.id]();
 		});
 	}
 
