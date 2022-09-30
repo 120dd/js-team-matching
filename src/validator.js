@@ -14,7 +14,7 @@ export function validateName(input, list) {
 	return { status: false };
 }
 
-export function isInvalidNum({ num, maxNum }) {
+export function validateInvalidNum({ num, maxNum }) {
 	if (maxNum < 1) {
 		return { status: true, errorCode: ERROR_CODE.NOT_ENOUGH_CREW };
 	}

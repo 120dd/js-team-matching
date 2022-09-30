@@ -1,5 +1,5 @@
 import { Matcer } from './model/matcer.js';
-import { validateName, isInvalidNum } from './validator.js';
+import { validateName, validateInvalidNum } from './validator.js';
 import View from './view/view.js';
 
 export class MatcherHandler {
@@ -17,7 +17,7 @@ export class MatcherHandler {
 
 	requestMatching = ({ position, minNum }) => {
 		const maxNum = Math.floor(this.matcher.getPositionList(position).length / 2);
-		const validateResult = isInvalidNum({ num: minNum, maxNum });
+		const validateResult = validateInvalidNum({ num: minNum, maxNum });
 		if (validateResult.status) {
 			this.view.alertErrorCode(validateResult.errorCode);
 			return;
