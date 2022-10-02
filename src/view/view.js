@@ -31,12 +31,15 @@ export default class {
 		});
 	}
 
-	registerManageTabClickEventListenerActions({ e, addFn, deleteFn }) {
+	registerManageTabClickEventListenerActions({ e, addFn }) {
 		return {
 			'frontend-course': () => this.showManageSection(e),
 			'backend-course': () => this.showManageSection(e),
-			'add-crew-button': () => this.requestAddCrew(addFn),
-			'delete-crew-button': () => this.requestDeleteCrew(e, deleteFn),
+			'add-crew-button': () =>
+				addFn({
+					position: this.#currentCourse,
+					name: $(`#${SELECTOR.CREW_NAME_INPUT}`).value,
+				}),
 		};
 	}
 
@@ -44,7 +47,10 @@ export default class {
 		$(SELECTOR.MAIN).addEventListener('click', e => {
 			const actions = this.registerManageTabClickEventListenerActions({ e, addFn, deleteFn });
 			if (e.target.className === SELECTOR.DELETE_CREW_BUTTON) {
-				return this.requestDeleteCrew(e, deleteFn);
+				return deleteFn({
+					position: this.#currentCourse,
+					idx: e.target.dataset.targetIndex,
+				});
 			}
 			e.target.id && typeof actions[e.target.id] === 'function' && actions[e.target.id]();
 		});
@@ -94,20 +100,6 @@ export default class {
 			}),
 		);
 		this.renderCourseMemberList();
-	}
-
-	requestAddCrew(callbackFn) {
-		callbackFn({
-			position: this.#currentCourse,
-			name: $(`#${SELECTOR.CREW_NAME_INPUT}`).value,
-		});
-	}
-
-	requestDeleteCrew(e, callbackFn) {
-		callbackFn({
-			position: this.#currentCourse,
-			idx: e.target.dataset.targetIndex,
-		});
 	}
 
 	renderCourseManageSection() {
