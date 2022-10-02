@@ -2,27 +2,43 @@ import { ERROR_CODE } from './constants.js';
 
 export function validateName(input, list) {
 	const pattern = /\s/g;
+	const result = {
+		status: true,
+		errorCode: '',
+	};
 	if (!input || input.match(pattern)) {
-		return { status: true, errorCode: ERROR_CODE.EMPTY_INPUT };
+		result.errorCode = ERROR_CODE.EMPTY_INPUT;
+		return result;
 	}
 	if (input.length > 5) {
-		return { status: true, errorCode: ERROR_CODE.STRING_NUM_OVER };
+		result.errorCode = ERROR_CODE.STRING_NUM_OVER;
+		return result;
 	}
 	if (list.includes(input)) {
-		return { status: true, errorCode: ERROR_CODE.DUPLICATED_NAME };
+		result.errorCode = ERROR_CODE.DUPLICATED_NAME;
+		return result;
 	}
-	return { status: false };
+	result.status = false;
+	return result;
 }
 
 export function validateInvalidNum({ num, maxNum }) {
+	const result = {
+		status: true,
+		errorCode: '',
+	};
 	if (maxNum < 1) {
-		return { status: true, errorCode: ERROR_CODE.NOT_ENOUGH_CREW };
+		result.errorCode = ERROR_CODE.NOT_ENOUGH_CREW;
+		return result;
 	}
 	if (Number(num) > maxNum) {
-		return { status: true, errorCode: ERROR_CODE.TO_BIG_NUMBER(maxNum) };
+		result.errorCode = ERROR_CODE.TO_BIG_NUMBER(maxNum);
+		return result;
 	}
 	if (Number(num) < 1) {
-		return { status: true, errorCode: ERROR_CODE.CREW_SHOULD_MORE_THEN_ONE };
+		result.errorCode = ERROR_CODE.CREW_SHOULD_MORE_THEN_ONE;
+		return result;
 	}
-	return { status: false };
+	result.status = false;
+	return result;
 }
