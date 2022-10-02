@@ -52,7 +52,7 @@ export default class {
 					idx: e.target.dataset.targetIndex,
 				});
 			}
-			e.target.id && typeof actions[e.target.id] === 'function' && actions[e.target.id]();
+			this.executeWhenActionExist({ e, actions });
 		});
 	}
 
@@ -67,8 +67,12 @@ export default class {
 					matchingFn({ position: this.#currentCourse, minNum });
 				},
 			};
-			e.target.id && typeof actions[e.target.id] === 'function' && actions[e.target.id]();
+			this.executeWhenActionExist({ e, actions });
 		});
+	}
+
+	executeWhenActionExist({ e, actions }) {
+		e.target.id && typeof actions[e.target.id] === 'function' && actions[e.target.id]();
 	}
 
 	showCrewTab() {
