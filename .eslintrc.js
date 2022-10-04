@@ -8,6 +8,7 @@ module.exports = {
     extends: ['eslint:recommended', 'airbnb-base', 'prettier'],
     plugins: ['prettier'],
     rules: {
+        'semi': [2,'always'],
         'import/prefer-default-export': 'off',
         'import/extensions': ['off'],
         "class-methods-use-this": "off",
